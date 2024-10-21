@@ -1,0 +1,38 @@
+.DS_Store
+# project
+**/.idea
+**/venv
+**/.vscode
+**/__pycache__
+**/.ipynb_checkpoints
+
+# dir
+**/data
+**/test
+test*
+temp*
+**/paper
+
+# data
+*.csv
+*.json
+*.jsonl
+*.ini
+*.backup
+*.7z
+*.zip
+*.tar*
+
+# text
+*.xlsx
+*.xml
+*.doc*
+*.ppt*
+*.pdf
+*.tex
+
+
+# image
+*.png
+*.jpg
+*.eps

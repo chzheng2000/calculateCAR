@@ -201,20 +201,20 @@ drop temp total_dates
 save "data/ready_for_calculation/`outfile'", replace
 end
 
-
+// follow Liu Shu Wei JFE
 cap: mkdir "data/ready_for_calculation"
 local infile "stkcd_anno_date.dta"
-prepare_car_data `infile' "event2010.dta" 2010 -200 -10 5 100
-prepare_car_data `infile' "event2011.dta" 2011 -200 -10 5 100
-prepare_car_data `infile' "event2012.dta" 2012 -200 -10 5 100
-prepare_car_data `infile' "event2013.dta" 2013 -200 -10 5 100
-prepare_car_data `infile' "event2014.dta" 2014 -200 -10 5 100
-prepare_car_data `infile' "event2015.dta" 2015 -200 -10 5 100
-prepare_car_data `infile' "event2016.dta" 2016 -200 -10 5 100
-prepare_car_data `infile' "event2017.dta" 2017 -200 -10 5 100
-prepare_car_data `infile' "event2018.dta" 2018 -200 -10 5 100
-prepare_car_data `infile' "event2019.dta" 2019 -200 -10 5 100
-prepare_car_data `infile' "event2020.dta" 2020 -200 -10 5 100
-prepare_car_data `infile' "event2021.dta" 2021 -200 -10 5 100
-prepare_car_data `infile' "event2022.dta" 2022 -200 -10 5 100
+prepare_car_data `infile' "event2010.dta" 2010 -365 -31 10 100
+prepare_car_data `infile' "event2011.dta" 2011 -365 -31 10 100
+prepare_car_data `infile' "event2012.dta" 2012 -365 -31 10 100
+prepare_car_data `infile' "event2013.dta" 2013 -365 -31 10 100
+prepare_car_data `infile' "event2014.dta" 2014 -365 -31 10 100
+prepare_car_data `infile' "event2015.dta" 2015 -365 -31 10 100
+prepare_car_data `infile' "event2016.dta" 2016 -365 -31 10 100
+prepare_car_data `infile' "event2017.dta" 2017 -365 -31 10 100
+prepare_car_data `infile' "event2018.dta" 2018 -365 -31 10 100
+prepare_car_data `infile' "event2019.dta" 2019 -365 -31 10 100
+prepare_car_data `infile' "event2020.dta" 2020 -365 -31 10 100
+prepare_car_data `infile' "event2021.dta" 2021 -365 -31 10 100
+prepare_car_data `infile' "event2022.dta" 2022 -365 -31 10 100
 /* prepare_car_data `infile' "event2023.dta" 2023 -200 -10 5 100 */

@@ -127,10 +127,11 @@ end
 **************************************************
 **************************************************
 // follow Garfinkel and Sobokin 2006
-local pre_esitmation -200
-local post_estimation -21
-local post_event = 5
-forvalues year = 2010(1)2022{
+// liu shu wei JFE
+local pre_esitmation -365
+local post_estimation -31
+local post_event = 6
+forvalues year = 2010(1)2020{
     market_model "event`year'" "mkt_model`year'" `pre_esitmation' `post_estimation' `post_event'
 }
 
@@ -139,10 +140,13 @@ forvalues year = 2010(1)2022{
 **# Calculate CAR
 **************************************************
 **************************************************
-local max_window = 5
-forvalues year = 2010(1)2022{
+local max_window = 6
+forvalues year = 2010(1)2020{
     di "------`year'------"
 qui{
     calculateCAR "mkt_model`year'" "CAR`year'" `max_window'
 }
 }
+
+calculateCAR "mkt_model2021" "CAR2021" 6
+calculateCAR "mkt_model2022" "CAR2022" 6

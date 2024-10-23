@@ -148,5 +148,18 @@ qui{
 }
 }
 
-calculateCAR "mkt_model2021" "CAR2021" 6
-calculateCAR "mkt_model2022" "CAR2022" 6
+/* calculateCAR "mkt_model2021" "CAR2021" 6
+calculateCAR "mkt_model2022" "CAR2022" 6 */
+
+**************************************************
+**************************************************
+**# Combine Data
+**************************************************
+**************************************************
+use "$out_dir/CAR2010", clear
+forvalues year = 2011(1)2020{
+    append using "$out_dir/CAR`year'"
+}
+drop date_trade id
+// accounting year
+save "$out_dir/CAR2010-2020", replace

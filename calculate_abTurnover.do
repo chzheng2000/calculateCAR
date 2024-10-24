@@ -155,3 +155,12 @@ local max_window 5
 forvalues year=2010(1)2022{
     calculate_abTurnover "event`year'.dta" "abTurnover`year'.dta" `pre_esitmation' `post_estimation' `max_window'
 }
+
+
+// merge data
+use "$out_dir/abTurnover2010.dta", clear
+forvalues year=2011(1)2022{
+    append using "$out_dir/abTurnover`year'.dta"
+}
+duplicates drop stkcd date_t0, force
+save "$out_dir/abTurnover2010-2022.dta", replace

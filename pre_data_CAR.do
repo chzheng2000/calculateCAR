@@ -2,7 +2,7 @@
 preprocess data for CAR calculation from CSMAR
 */
 clear all
-set processor 8
+set processor `c(processors_max)'
 global root_dir "/Users/zch/projects/calculateCAR"
 cd $root_dir
 global data_dir "/Volumes/T7Shield/data/CSMAR股票交易数据"
@@ -122,6 +122,8 @@ duplicates drop _all, force
 save "`outfile'", replace
 end
 
+deal_one_return_file "$data_dir/日个股回报率99-03/TRD_Dalyr.csv" "data/stkcd_ret99-03.dta"
+deal_one_return_file "$data_dir/日个股回报率99-03/TRD_Dalyr.csv" "data/stkcd_ret99-03_1.dta"
 deal_one_return_file "$data_dir/日个股回报率04-08/TRD_Dalyr.csv" "data/stkcd_ret04-08.dta"
 deal_one_return_file "$data_dir/日个股回报率04-08/TRD_Dalyr1.csv" "data/stkcd_ret04-08_1.dta"
 deal_one_return_file "$data_dir/日个股回报率09-13/TRD_Dalyr.csv" "data/stkcd_ret09-13.dta"
@@ -141,7 +143,12 @@ deal_one_return_file "$data_dir/日个股回报率19-23/TRD_Dalyr5.csv" "data/st
 /* tab markettype */
 
 // 这里使用09-23的数据
-use "data/stkcd_ret09-13.dta", clear
+// 99-23数据
+use "data/stkcd_ret99-03.dta", clear
+append using "data/stkcd_ret99-03_1.dta"
+append using "data/stkcd_ret04-08.dta"
+append using "data/stkcd_ret04-08_1.dta"
+append using "data/stkcd_ret09-13.dta"
 append using "data/stkcd_ret09-13_1.dta"
 append using "data/stkcd_ret09-13_2.dta"
 append using "data/stkcd_ret14-18.dta"
@@ -154,7 +161,8 @@ append using "data/stkcd_ret19-23_2.dta"
 append using "data/stkcd_ret19-23_3.dta"
 append using "data/stkcd_ret19-23_4.dta"
 append using "data/stkcd_ret19-23_5.dta"
-save "data/stkcd_ret09-23.dta", replace
+save "data/stkcd_ret99-23.dta", replace
+/* save "data/stkcd_ret09-23.dta", replace */
 **************************************************
 **************************************************
 **# 5. Merge Event Date and Trading Date
@@ -198,23 +206,25 @@ gen temp = 1 if date_diff<=`post_estimation'
 bys stkcd date_t0: egen total_dates = sum(temp)
 drop if total_dates<`least_points'
 drop temp total_dates
-save "data/ready_for_calculation/`outfile'", replace
+save "data/`outfile'", replace
 end
 
+
+// announcement date
 // follow Liu Shu Wei JFE
 cap: mkdir "data/ready_for_calculation"
 local infile "stkcd_anno_date.dta"
-prepare_car_data `infile' "event2010.dta" 2010 -365 -31 10 100
-prepare_car_data `infile' "event2011.dta" 2011 -365 -31 10 100
-prepare_car_data `infile' "event2012.dta" 2012 -365 -31 10 100
-prepare_car_data `infile' "event2013.dta" 2013 -365 -31 10 100
-prepare_car_data `infile' "event2014.dta" 2014 -365 -31 10 100
-prepare_car_data `infile' "event2015.dta" 2015 -365 -31 10 100
-prepare_car_data `infile' "event2016.dta" 2016 -365 -31 10 100
-prepare_car_data `infile' "event2017.dta" 2017 -365 -31 10 100
-prepare_car_data `infile' "event2018.dta" 2018 -365 -31 10 100
-prepare_car_data `infile' "event2019.dta" 2019 -365 -31 10 100
-prepare_car_data `infile' "event2020.dta" 2020 -365 -31 10 100
-prepare_car_data `infile' "event2021.dta" 2021 -365 -31 10 100
-prepare_car_data `infile' "event2022.dta" 2022 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2010.dta" 2010 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2011.dta" 2011 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2012.dta" 2012 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2013.dta" 2013 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2014.dta" 2014 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2015.dta" 2015 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2016.dta" 2016 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2017.dta" 2017 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2018.dta" 2018 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2019.dta" 2019 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2020.dta" 2020 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2021.dta" 2021 -365 -31 10 100
+prepare_car_data `infile' "ready_for_calculation/event2022.dta" 2022 -365 -31 10 100
 /* prepare_car_data `infile' "event2023.dta" 2023 -200 -10 5 100 */

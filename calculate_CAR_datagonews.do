@@ -6,6 +6,9 @@ unable to run efficiently?
 Apr 28, 2025 22:50
 stkcd date specific calculation
 slice stkcd-date to reduce memory usage
+
+Apr 29, 2025 15:26
+keep AR information
 */
 clear all
 set processor `c(processors_max)'
@@ -177,6 +180,7 @@ bys id: egen car00_ew = total(ar_ew)
 bys id: egen car00_vw = total(ar_vw)
 bys id: egen car00_ewadj = total(ar_ewadj)
 bys id: egen car00_vwadj = total(ar_vwadj)
+// 保留ar信息
 duplicates drop id, force
 // idiosyncratic 暂时没用
 drop alpha* beta* date_diff mkret* dretwd* ar_* R2* idiosyncratic* estimation_window
@@ -229,8 +233,8 @@ global event_path "/Users/zch/projects/data/datago-media/news_basic_pubdate98-20
 
 local pre_esitmation -365
 local post_estimation -31
-local post_event = 3
-local max_window = 3
+local post_event = 5
+local max_window = 5
 local min_trade_days = 100
 forvalues year=2000(1)2020{
     di "------`year'------  Start `c(current_time)' `c(current_date)'"
@@ -257,7 +261,7 @@ di "`files'" */
 TODO 计算CAR
 local filelist : dir "data/datago_dates" files "2000*.dta"
 foreach x in `filelist'{
-    di "`x'"
+    // pass
 }
 
 
